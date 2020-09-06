@@ -1,0 +1,49 @@
+<!-- <div class="center" *ngIf="products.length === 0">
+    <section id="content">
+        <table class="table-primary table-bordered" width=93%>
+            <thead class="table-dark ">
+                <tr>
+                    <th scope="col" width="50" height="50" class="text-center">Nombre</th>
+                    <th scope="col" width="50" height="50"  class="text-center">Precio</th>
+                    <th scope="col" width="50" height="50"  class="text-center">Descripción</th>
+                    <th scope="col" width="50" height="50"  class="text-center">Acción</th>
+                </tr>
+            </thead>
+            <h5> 
+                No hay productos que coincidan con tu búsqueda
+            </h5>
+        </table>
+    </section>
+    
+</div>
+
+<div class="center" *ngIf="products.length > 0">
+    <h4 class="subheader">{{title}}</h4>
+    <section id="content">
+        <table class="table-primary table-bordered" width=93%>
+            <thead class="table-dark ">
+                <tr>
+                    <th scope="col" width="50" height="50" class="text-center">Nombre</th>
+                    <th scope="col" width="50" height="50"  class="text-center">Precio</th>
+                    <th scope="col" width="50" height="50"  class="text-center">Descripción</th>
+                    <th scope="col" width="50" height="50"  class="text-center">Acción</th>
+                </tr>
+            </thead>
+            <tbody *ngFor="let product of products">
+                <tr>
+                    
+                    <td width="50" height="50" class="text-center"><strong>{{product.name}}</strong></td>
+                    <td width="50" height="50" class="text-center">{{product.price}} €</td>
+                    <td width="50" height="50" class="text-center">{{product.description}}</td>
+                    <td><button [routerLink]="['/home/editar', product.name]" class="btn btn-outline-primary" style="font-size:20px; color:rgba(124, 6, 160, 0.979)"> <i class="fa fa-pencil-square-o"></i></button>
+
+                    <button (click)="delete(product.name)" class="btn btn-outline-dark" style="font-size:20px;color:red"> <i class="fa fa-close"></i></button>
+                    </td>  
+                   
+                </tr>
+        
+            </tbody>
+            
+        </table>
+    </section>
+</div> -->
