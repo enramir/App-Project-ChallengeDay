@@ -20,17 +20,17 @@
                             <span class="col-md-1 col-md-offset-2 text-center"></span>
                             <div class="col-md-8">
                         
-                                <input #id="ngModel" [(ngModel)]="device.id" id="id" name="id" type="text" placeholder="ID" class="form-control"  required>
+                                <input #id="ngModel" [(ngModel)]="device.id" id="id" name="id" type="text" placeholder="ID" class="form-control" pattern='[A-Za-z]{3}' required>
                                 
                             </div>
-                            <small *ngIf="!id.valid && id.touched">El ID es obligatorio</small>
+                            <small *ngIf="!id.valid && id.touched">El ID es obligatorio y tiene que tener 3 caracteres</small>
                         </div>
 
                         <div class="form-group">
                             <span class="col-md-1 col-md-offset-2 text-center"></span>
                             <div class="col-md-8">
                                 
-                                <input #numero_serie="ngModel" [(ngModel)]="device.numero_serie" id="numero_serie" name="numero_serie" type="number" min="1" step="1" placeholder="Número de serie" class="form-control" pattern='([0-9]*[.])?[0-9]+$' required >
+                                <input #numero_serie="ngModel" [(ngModel)]="device.numero_serie" id="numero_serie" name="numero_serie" type="number" min="1" step="1" placeholder="Número de serie" class="form-control" pattern='[0-9]+' required >
                             </div>
                             <small *ngIf="!numero_serie.valid && numero_serie.touched">El número de serie es obligatorio</small>
                         </div>

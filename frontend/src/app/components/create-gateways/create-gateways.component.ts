@@ -34,7 +34,7 @@ export class CreateGatewaysComponent implements OnInit {
     
     this._deviceService.create(this.device).subscribe(
       response => {
-        
+        console.log(response);
         if(response == 'Created'){
           
           // Alert
@@ -46,18 +46,20 @@ export class CreateGatewaysComponent implements OnInit {
 
           this._router.navigate(['/gateways']);
         
-        }else{
-          response.status(405);
         } 
 
       },
       error => {
+        //console.log(error.error);
+        if(error.error == 'Conflict'){
+          swal(
+            '¡Gateway ya registrado!',
+            'No se puede insertar dos veces el mismo dispositivo.',
+            'error'
+          );
+        }
         console.log(error);
-        swal(
-          '¡Gateway no registrado!',
-          'El gateway no se ha guardado correctamente.',
-          'error'
-        );
+    
       }
     );
   }

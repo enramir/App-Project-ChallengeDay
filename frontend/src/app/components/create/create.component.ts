@@ -46,18 +46,18 @@ export class CreateComponent implements OnInit {
 
           this._router.navigate(['/contadoresAgua']);
         
-        }else{
-          response.status(405);
         } 
 
       },
       error => {
         console.log(error);
-        swal(
-          '¡Contador de agua no registrado!',
-          'El contador no se ha guardado correctamente.',
-          'error'
-        );
+        if(error.error == 'Conflict'){
+          swal(
+            '¡Contador de agua ya registrado!',
+            'No se puede insertar dos veces el mismo dispositivo.',
+            'error'
+          );
+        }
       }
     );
   }

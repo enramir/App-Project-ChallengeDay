@@ -45,18 +45,18 @@ export class CreateLuzComponent implements OnInit {
 
           this._router.navigate(['/contadoresLuz']);
         
-        }else{
-          response.status(405);
         } 
 
       },
       error => {
         console.log(error);
-        swal(
-          '¡Contador de luz no registrado!',
-          'El contador no se ha guardado correctamente.',
-          'error'
-        );
+        if(error.error == 'Conflict'){
+          swal(
+            '¡Contador de luz ya registrado!',
+            'No se puede insertar dos veces el mismo dispositivo.',
+            'error'
+          );
+        }
       }
     );
   }

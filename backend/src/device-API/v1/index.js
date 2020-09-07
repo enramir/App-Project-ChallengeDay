@@ -14,12 +14,12 @@ module.exports = (app, BASE_PATH, device) => {
           });
     });
       
-    app.get(path + "/:name", (req, res) => {
+    app.get(path + "/:id", (req, res) => {
         
-        var name = req.params.name;
-        console.log("Registering get "+path+"/"+name);
+        var name = req.params.id;
+        console.log("Registering get "+path+"/"+id);
         
-        device.find({"name": name}).toArray((err, deviceArray) => {
+        device.find({"id": id}).toArray((err, deviceArray) => {
             if(err){
                 console.log("Error: " + err);
             }
@@ -34,27 +34,42 @@ module.exports = (app, BASE_PATH, device) => {
     app.post(path, (req, res) => {
         console.log("Registering post "+path+"...");
         var newDevice = req.body;
-        device.insert(newDevice);
-        
-        res.sendStatus(201);
+
+        device.find({"id": newDevice["id"], "numero_serie": newDevice["numero_serie"]}).toArray( (err, deviceArray) => {
+
+            if(err) console.log("Error: "+ err);
+                
+                    if(deviceArray.length == 0){
+                        
+                        device.insert(newDevice);
+                        console.log("Request accepted, creating new resource in database.");
+                        res.sendStatus(201, 'Created');
+                        
+                    } else {
+                        console.log("Error: Resource already exists in the database.");
+                        res.sendStatus(409, 'Conflict');
+                        
+                    }
+                    
+        });
     });
     
-    app.put(path + "/:name", (req, res) => {
+    app.put(path + "/:id", (req, res) => {
         
         var updateDevice = req.body;
-        var name = req.params.name;
+        var id = req.params.id;
 
-        console.log("Registering put "+path+"/"+name);
+        console.log("Registering put "+path+"/"+id);
 
-        device.find({"name": name}).toArray((err, deviceArray) => {
+        device.find({"id": id}).toArray((err, deviceArray) => {
             if(err){
                 console.log("Error: " + err);
             }
             if(deviceArray.length > 0){
-                if(name != updateDevice.name){
+                if(id != updateDevice.id){
                     res.sendStatus(409);
                 }else{
-                    device.update({"name": name}, updateDevice);
+                    device.update({"id": id}, updateDevice);
                     console.log(updateDevice);
                     res.sendStatus(200);
                 }
@@ -66,16 +81,16 @@ module.exports = (app, BASE_PATH, device) => {
         });
     });
     
-    app.delete(path + "/:name", (req, res) => {
-        var name = req.params.name;
-        console.log("Registering delete "+path+"/"+name);
+    app.delete(path + "/:id", (req, res) => {
+        var id = req.params.id;
+        console.log("Registering delete "+path+"/"+id);
 
-        device.find({"name": name}).toArray((err, deviceArray) => {
+        device.find({"id": id}).toArray((err, deviceArray) => {
             if(err){
                 console.log("Error: " + err);
             }
             if(deviceArray.length > 0){
-                products.remove(deviceArray[0]);
+                device.remove(deviceArray[0]);
                 res.sendStatus(200);
             }else{
                 res.sendStatus(404, "Resource not found");
@@ -95,7 +110,7 @@ module.exports = (app, BASE_PATH, device) => {
 
         var searchString = req.params.search;
         // console.log(searchString);
-        device.find({"name": searchString}).toArray((err, deviceSearched) => {
+        device.find({"modelo": searchString}).toArray((err, deviceSearched) => {
             if(err){
                 console.log("Error: " + err);
             }
@@ -106,7 +121,7 @@ module.exports = (app, BASE_PATH, device) => {
     });
 
     // method not allowed
-    app.post(path + "/:name", (req, res) => {
+    app.post(path + "/:id", (req, res) => {
             
         res.sendStatus(405);
         
