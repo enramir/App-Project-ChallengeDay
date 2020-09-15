@@ -11,6 +11,6 @@ Run `npm start` for a dev server. Navigate to `http://localhost:3000/api/v1/devi
 
 ## Frontend
 
-The frontend deployment instructions are in the frontend folder.
+The frontend deployment instructions are in the frontend folder
 
 
